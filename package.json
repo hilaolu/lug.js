@@ -1,0 +1,28 @@
+{
+    "name": "lug.js",
+    "version": "0.1.35",
+    "description": "",
+    "prepublishOnly": "webpack --mode=production",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hilaolu/lug.js.git"
+    },
+    "author": "Phyzait Lu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hilaolu/lug.js/issues"
+    },
+    "homepage": "https://github.com/hilaolu/lug.js#readme",
+    "devDependencies": {
+        "webpack": "^5.78.0",
+        "webpack-cli": "^5.0.1"
+    },
+    "dependencies": {
+        "vdom-to-html": "^2.3.1",
+        "xterm-headless": "^5.1.0"
+    }
+}
