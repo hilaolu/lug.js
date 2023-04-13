@@ -3,7 +3,7 @@
 const h = require('virtual-dom/virtual-hyperscript/svg')
 const xterm = require('xterm-headless')
 
-export async function tsc2svg(s: String, width = 80, height = 25, backgroundColor = 0) {
+export async function tsc2svg(s: String, cols?: number | null, rows?: number | null, backgroundColor: number | null = 0) {
 
     const colors = [
         '#000000',
@@ -264,6 +264,8 @@ export async function tsc2svg(s: String, width = 80, height = 25, backgroundColo
         '#eeeeee',
     ]
 
+    cols = cols || 80
+    rows = rows || 25
 
     const projectX = (x: number) => Math.round(x * .5 * 2000) / 100
     const projectY = (y: number) => Math.round(y * 2000) / 100
@@ -310,8 +312,8 @@ export async function tsc2svg(s: String, width = 80, height = 25, backgroundColo
         }
     }
 
-    const svg_width = projectY(.5) + projectX(width)
-    const svg_height = projectY(.5) + projectY(height)
+    const svg_width = projectY(.5) + projectX(cols)
+    const svg_height = projectY(.5) + projectY(rows)
 
     let vdom = h('svg', {
         xmlns: 'http://www.w3.org/2000/svg',

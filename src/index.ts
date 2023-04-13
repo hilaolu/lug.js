@@ -6,12 +6,14 @@ async function tsc_render_all() {
 
     await Promise.all(tscs.map(async (tsc) => {
         let src = tsc.getAttribute('src')
+        let cols = parseInt(tsc.getAttribute('cols'))
+        let rows = parseInt(tsc.getAttribute('rows'))
 
         if (src) {
             let response = await fetch(src)
             if (response.ok) {
                 let svg = await response.text()
-                tsc.innerHTML = await tsc2svg(svg)
+                tsc.innerHTML = await tsc2svg(svg, cols, rows)
             }
         }
     }))
