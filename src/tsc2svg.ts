@@ -273,7 +273,7 @@ export async function tsc2svg(s: String, cols?: number | null, rows?: number | n
     const terminal = new xterm.Terminal({ allowProposedApi: true, cols: cols, rows: rows });
 
     await new Promise(resolve => terminal.write(s, resolve));
-    await new Promise(resolve => terminal.scrollToTop(resolve));
+    await terminal.scrollToTop()
 
     var cells: any[] = []
     for (let y = 0; y < terminal.rows; y++) {
