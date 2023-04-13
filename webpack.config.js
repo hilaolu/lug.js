@@ -2,7 +2,16 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    entry: ['./src/index.js'],
+    entry: ['./src/index.ts'],
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
     mode: 'development',
     output: {
         filename: 'lug.js',
@@ -16,4 +25,7 @@ module.exports = {
             'LUGJS_VERSION': JSON.stringify(process.env.npm_package_version),
         })
     ],
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.json'],
+    },
 };

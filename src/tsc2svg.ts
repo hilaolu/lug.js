@@ -3,7 +3,7 @@
 const h = require('virtual-dom/virtual-hyperscript/svg')
 const xterm = require('xterm-headless')
 
-async function typescript2svg(s, width = 80, height = 25, backgroundColor = 0) {
+export async function tsc2svg(s: String, width = 80, height = 25, backgroundColor = 0) {
 
     const colors = [
         '#000000',
@@ -265,15 +265,15 @@ async function typescript2svg(s, width = 80, height = 25, backgroundColor = 0) {
     ]
 
 
-    const projectX = (x) => Math.round(x * .5 * 2000) / 100
-    const projectY = (y) => Math.round(y * 2000) / 100
+    const projectX = (x: number) => Math.round(x * .5 * 2000) / 100
+    const projectY = (y: number) => Math.round(y * 2000) / 100
 
     const terminal = new xterm.Terminal({ allowProposedApi: true, cols: 80, rows: 25 });
 
     await new Promise(resolve => terminal.write(s, resolve));
     // terminal._core.writeSync(s)
 
-    const cells = []
+    var cells: any[] = []
     for (let y = 0; y < terminal.rows; y++) {
         for (let x = 0; x < terminal.cols; x++) {
 
@@ -294,21 +294,19 @@ async function typescript2svg(s, width = 80, height = 25, backgroundColor = 0) {
             const fg = colors[cell.getFgColor()] || '#000'
             const bg = colors[cell.getBgColor()] || '#fff'
 
-            const renderCell = (x, y, text, fg, bg, inverse, underline, bold) => {
-                const s = { fill: fg }
-                if (underline) s.textDecoration = 'underline'
-                if (bold) s.fontWeight = 'bold'
-                if (bg && bg !== '#fff') s.backgroundColor = bg
+            const s = { fill: fg, textDecoration: '', fontWeight: '', backgroundColor: '' }
+            if (underline) s.textDecoration = 'underline'
+            if (bold) s.fontWeight = 'bold'
+            if (bg && bg !== '#fff') s.backgroundColor = bg
 
-                // todo: inverse
-                return h('text', {
-                    x: projectX(x) + '',
-                    y: projectY(y + .8) + '',
-                    style: s
-                }, text)
-            }
+            // todo: inverse
+            const e = h('text', {
+                x: projectX(x) + '',
+                y: projectY(y + .8) + '',
+                style: s
+            }, text)
 
-            cells.push(renderCell(x, y, text, fg, bg, inverse, underline, bold))
+            cells.push(e)
         }
     }
 
@@ -329,5 +327,3 @@ async function typescript2svg(s, width = 80, height = 25, backgroundColor = 0) {
     const toString = require('vdom-to-html')
     return toString(vdom)
 }
-
-module.exports = { typescript2svg }
