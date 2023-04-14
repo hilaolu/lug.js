@@ -1,6 +1,6 @@
 {
     "name": "lug.js",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "description": "",
     "prepublishOnly": "webpack --mode=production",
     "scripts": {
@@ -24,6 +24,7 @@
         "webpack-cli": "^5.0.1"
     },
     "dependencies": {
+        "aasvg": "^0.3.4",
         "vdom-to-html": "^2.3.1",
         "xterm-headless": "^5.1.0"
     }
