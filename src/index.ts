@@ -24,15 +24,16 @@ async function tsc_render_all() {
 async function aa_render_all() {
     let aas = Array.from(document.getElementsByClassName('aa'))
 
-    await Promise.all(aas.map(async (tsc) => {
-        let src = tsc.getAttribute('src')
-
+    await Promise.all(aas.map(async (aa) => {
+        let src = aa.getAttribute('src')
         if (src) {
             let response = await fetch(src)
             if (response.ok) {
                 let svg = await response.text()
                 let options = { style: {} }
-                tsc.innerHTML = await diagramToSVG(svg, options)
+                aa.innerHTML = await diagramToSVG(svg, options)
+                aa.firstElementChild.removeAttribute('width')
+                aa.firstElementChild.removeAttribute('height')
             }
         }
     }))
