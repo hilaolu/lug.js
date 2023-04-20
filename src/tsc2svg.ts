@@ -270,7 +270,7 @@ export async function tsc2svg(s: String, cols?: number | null, rows?: number | n
     const projectX = (x: number) => Math.round(x * .5 * 2000) / 100
     const projectY = (y: number) => Math.round(y * 2000) / 100
 
-    const terminal = new xterm.Terminal({ allowProposedApi: true, cols: cols, rows: rows });
+    const terminal = new xterm.Terminal({ allowProposedApi: true, cols: cols, rows: rows, convertEol: true });
 
     await new Promise(resolve => terminal.write(s, resolve));
     await terminal.scrollToTop()
